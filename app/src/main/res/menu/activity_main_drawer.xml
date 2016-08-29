@@ -3,35 +3,21 @@
 		<item
 			android:id="@+id/nav_launch"
 			android:icon="@drawable/ic_arrow_right"
-			android:title="@string/dl_1"/>
-		<item
-			android:id="@+id/nav_texture"
-			android:icon="@drawable/ic_folder_multiple_image"
-			android:title="@string/dl_4"/>
-		<item
-			android:id="@+id/nav_nightmod"
-			android:icon="@drawable/ic_auto_fix"
-			android:title="@string/dl_3"/>
-		<item
-			android:id="@+id/nav_developer"
-			android:icon="@drawable/ic_auto_fix"
-			android:title="@string/pref_cbpref_4"/>
+			android:title="@string/dr_1"/>
+		
 	</group>
 	<!--<item android:title="@string/dl_subtitle_1">
         <menu>-->
             
        <!-- </menu>
     </item>-->
-	<item android:title="@string/dl_subtitle_2">
+	<item android:title="@string/dr_sub">
         <menu>
             <item
                 android:id="@+id/nav_support"
-                android:icon="@drawable/ic_send"
-                android:title="@string/dl_2"/>
-            <item
-                android:id="@+id/nav_trainer"
-                android:icon="@drawable/ic_android_studio"
-                android:title="@string/dl_5"/>
+                android:icon="@drawable/ic_share_variant_white_24dp"
+                android:title="@string/dr_2_1"/>
+            
         </menu>
     </item>
     

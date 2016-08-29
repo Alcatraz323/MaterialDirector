@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MaterialDirector</string>
+	<string name="menu_1">设置</string>
+	<string name="menu_4">退出</string>
+	<string name="dr_1">打开 AIDE</string>
+	<string name="dr_sub">其他</string>
+	<string name="dr_2_1">关于</string>
+</resources>
