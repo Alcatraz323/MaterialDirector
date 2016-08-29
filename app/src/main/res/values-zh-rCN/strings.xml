@@ -7,4 +7,5 @@
 	<string name="dr_1">打开 AIDE</string>
 	<string name="dr_sub">其他</string>
 	<string name="dr_2_1">关于</string>
+	<string name="pref_1">默认路径</string>
 </resources>

@@ -7,4 +7,5 @@
 	<string name="dr_1">Start AIDE</string>
 	<string name="dr_sub">Other</string>
 	<string name="dr_2_1">About</string>
+	<string name="pref_1">Default Directory</string>
 </resources>

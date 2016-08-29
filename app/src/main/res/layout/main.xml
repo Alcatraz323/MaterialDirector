@@ -20,10 +20,31 @@
 			android:background="#3f51b5"
 			android:layout_width="match_parent"
 			android:id="@+id/mainToolbar1"
+			android:theme="@style/Night"
 			android:layout_height="?attr/actionBarSize">
 
 		</android.support.v7.widget.Toolbar>
+		<android.support.design.widget.TabLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="#3f51b5"
+			android:scrollbars="horizontal"
+			app:tabTextColor="#C7C7C7"
+			app:tabSelectedTextColor="#ffffff"
+			app:tabIndicatorColor="#ffffff"
+			app:tabMode="fixed"
+			app:tabGravity="fill"
+			app:tabPaddingStart="8dp"
+			app:tabPaddingEnd="8dp"
+			android:layout_below="@+id/mainToolbar1"
+			android:id="@+id/mainTabLayout1"/>
 
+		
+
+		<com.alcatraz.support.v4.appcompat.ViewPagerMin
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/mainViewPagerMin1"/>
 		
 
 	</LinearLayout>
