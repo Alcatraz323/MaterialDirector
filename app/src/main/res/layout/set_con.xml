@@ -1,0 +1,13 @@
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/pref_cat_1">
+		<EditTextPreference
+			android:key="default_dir"
+			android:defaultValue="/sdcard/AppProjects/"
+			android:dialogTitle="@string/pref_1"
+			android:title="@string/pref_1"/>
+	</PreferenceCategory>
+</PreferenceScreen>
+
