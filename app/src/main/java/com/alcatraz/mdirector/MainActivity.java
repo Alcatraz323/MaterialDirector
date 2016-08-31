@@ -22,7 +22,7 @@ import android.*;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
-	android.Manifest g
+	
 	@Override
 	public void onClick(View p1)
 	{
@@ -199,6 +199,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		final EditText c_et_1=(EditText) bb.findViewById(R.id.create1EditText1);
 		final EditText c_et_2=(EditText) bb.findViewById(R.id.create1EditText2);
 		final EditText c_et_3=(EditText) bb.findViewById(R.id.create1EditText3);
+		final EditText c_et_4=(EditText) bb.findViewById(R.id.create1EditText4);
+		Spinner spn_1=(Spinner) bb.findViewById(R.id.create1Spinner1);
+		Spinner spn_2=(Spinner) bb.findViewById(R.id.create1Spinner2);
 		c_et_3.setText(def_dir);
 		Button c_btn=(Button) bb.findViewById(R.id.create1Button1);
 		c_btn.setOnClickListener(this);
@@ -224,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 					c_et_1.setText(null);
 					c_et_2.setText(null);
 					c_et_3.setText(null);
+					c_et_4.setText(null);
 					// TODO: Implement this method
 				}
 			});

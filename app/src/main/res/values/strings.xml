@@ -19,8 +19,15 @@
 	<string name="create_2">Package Name</string>
 	<string name="create_3">Folder Path</string>
 	<string name="create_4">Add Permission</string>
+	<string name="create_5">ThemeColor</string>
+	<string name="create_spinner_1_1">MainActivity(drawer)</string>
+	<string name="create_spinner_1_2">MainActivity(drawer)+PreferencesAct</string>
+	<string name="create_spinner_1_3">MA(drawer)+Pre+Activity</string>
+	<string name="create_spinner_2_1">Light Theme</string>
+	<string name="create_spinnet_2_2">Dark Theme</string>
 	<string name="create_per">Permission</string>
 	<string name="cvad">Create Project</string>
+	
 	
 	<string name="perm_1">访问登记属性</string>
 	<string name="perm_2">获取粗略位置(30-1500m误差)</string>

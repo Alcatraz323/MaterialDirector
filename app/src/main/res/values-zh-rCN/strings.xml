@@ -19,6 +19,12 @@
 	<string name="create_2">包名</string>
 	<string name="create_3">路径</string>
 	<string name="create_4">添加权限</string>
+	<string name="create_5">主题色</string>
+	<string name="create_spinner_1_1">MainActivity(drawer)</string>
+	<string name="create_spinner_1_2">MainActivity(drawer)+PreferencesAct</string>
+	<string name="create_spinner_1_3">MA(drawer)+Pre+Activity</string>
+	<string name="create_spinner_2_1">亮主题</string>
+	<string name="create_spinnet_2_2">暗主题</string>
 	<string name="create_per">权限</string>
 	<string name="cvad">创建项目</string>
 	

@@ -46,6 +46,28 @@
 			android:ems="10"
 			android:id="@+id/create1EditText3"/>
 
+		<Spinner
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/create1Spinner1"/>
+
+		<Spinner
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/create1Spinner2"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="@string/create_5"/>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:id="@+id/create1EditText4"/>
+
 		<ScrollView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"/>
