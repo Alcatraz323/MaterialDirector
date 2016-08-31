@@ -22,7 +22,7 @@ import android.*;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
-	
+	/**/
 	@Override
 	public void onClick(View p1)
 	{
