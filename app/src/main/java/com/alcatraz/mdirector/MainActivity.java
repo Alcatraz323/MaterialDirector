@@ -19,13 +19,15 @@ import java.security.*;
 import android.text.method.*;
 import android.app.*;
 import android.*;
+import android.support.v4.content.*;
+import android.support.v4.app.*;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
-	/**/
 	@Override
 	public void onClick(View p1)
 	{
+		
 		switch(p1.getId()){
 			case R.id.gradleCardView1:
 				showCreateDlg();
@@ -71,9 +73,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		tb=(android.support.v7.widget.Toolbar) findViewById(R.id.mainToolbar1);
 		dl=(DrawerLayout) findViewById(R.id.mainDrawerLayout1);
 		tl=(TabLayout) findViewById(R.id.mainTabLayout1);
-		txv=(TextView) findViewById(R.id.navheaderTextView1);
-		txv.setText(getString(R.string.dr_device)+":"+Build.DEVICE);
 		ngv=(NavigationView) findViewById(R.id.navigation);
+		txv=(TextView) ngv.getHeaderView(0).findViewById(R.id.navheaderTextView1);
+		txv.setText(getString(R.string.dr_device)+":"+Build.DEVICE);
+		
+		
 		ngv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
 				@Override
