@@ -27,7 +27,10 @@
 	<string name="create_spinnet_2_2">Dark Theme</string>
 	<string name="create_per">Permission</string>
 	<string name="cvad">Create Project</string>
-	
+	<string name="perm_req">Permission Denied</string>
+	<string name="perm_msg">App will exit,retry?</string>
+	<string name="perm_pb">Retry</string>
+	<string name="perm_nb">Exit</string>
 	
 	<string name="perm_1">访问登记属性</string>
 	<string name="perm_2">获取粗略位置(30-1500m误差)</string>

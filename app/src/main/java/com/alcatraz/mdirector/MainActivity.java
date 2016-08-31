@@ -21,13 +21,14 @@ import android.app.*;
 import android.*;
 import android.support.v4.content.*;
 import android.support.v4.app.*;
+import android.widget.AdapterView.*;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
 	@Override
 	public void onClick(View p1)
 	{
-		
+
 		switch(p1.getId()){
 			case R.id.gradleCardView1:
 				showCreateDlg();
@@ -51,9 +52,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	TextView m2res_stat;
 	CardView cv;
 	View bb;
+	/*______*/
+	int[] create_sel=new int[2];
+	boolean[] create_selected=new boolean[134];
+	String[] create_perm_sel;
+	/*_______*/
+	
 	/*______ARGS*/
 	String def_dir;
-
+	
 
 	/*__________*/
 	ImageView m2_stat;
@@ -64,8 +71,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 		initViews();
-		m2resCheck();
 		setUpViewPager();
+		m2resCheck();
+		checkPerm(this);
+		for(int c=0;c<134;c++){
+			create_selected[c]=false;
+		}
     }
 	private void initViews()
 	{
@@ -76,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		ngv=(NavigationView) findViewById(R.id.navigation);
 		txv=(TextView) ngv.getHeaderView(0).findViewById(R.id.navheaderTextView1);
 		txv.setText(getString(R.string.dr_device)+":"+Build.DEVICE);
-		
-		
+
+
 		ngv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
 				@Override
@@ -120,11 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		cv=(CardView) vpa.get(0,R.id.gradleCardView1);
 		cv.setOnClickListener(this);
 		m2_stat=(ImageView) vpa.get(0,R.id.gradleImageView1);
-		if(m2resCheck()){
-			m2res_stat.setText(R.string.gra_granted);
-			m2res_stat.setTextColor(Color.parseColor("#2CAD00"));
-			m2_stat.setImageResource(R.drawable.ic_check);
-		}
+
 	}
 
 	@Override
@@ -181,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 			.show();
 		new AlertDialogUtil().setSupportDialogColor(a,Color.parseColor("#3f51b5"));
 	}
-	private boolean m2resCheck()
+	private void m2resCheck()
 	{
 		boolean flag=false;
 		try{
@@ -195,17 +202,64 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 			}
 		}catch(Exception e){
 		}
-		return flag;
+		if(flag){
+			m2res_stat.setText(R.string.gra_granted);
+			m2res_stat.setTextColor(Color.parseColor("#2CAD00"));
+			m2_stat.setImageResource(R.drawable.ic_check);
+		}else{
+			m2res_stat.setText(R.string.gra_2);
+			m2res_stat.setTextColor(Color.parseColor("#C10B00"));
+			m2_stat.setImageResource(R.drawable.ic_close);
+		}
+
+
 	}
 	private void showCreateDlg()
 	{
+		String[] spn_1_c={getString(R.string.create_spinner_1_1),getString(R.string.create_spinner_1_2),getString(R.string.create_spinner_1_3)};
+		String[] spn_2_c={getString(R.string.create_spinner_2_1),getString(R.string.create_spinnet_2_2)};
 		bb=getLayoutInflater().inflate(R.layout.create_1,null);
 		final EditText c_et_1=(EditText) bb.findViewById(R.id.create1EditText1);
 		final EditText c_et_2=(EditText) bb.findViewById(R.id.create1EditText2);
 		final EditText c_et_3=(EditText) bb.findViewById(R.id.create1EditText3);
 		final EditText c_et_4=(EditText) bb.findViewById(R.id.create1EditText4);
-		Spinner spn_1=(Spinner) bb.findViewById(R.id.create1Spinner1);
-		Spinner spn_2=(Spinner) bb.findViewById(R.id.create1Spinner2);
+		final Spinner spn_1=(Spinner) bb.findViewById(R.id.create1Spinner1);
+		final Spinner spn_2=(Spinner) bb.findViewById(R.id.create1Spinner2);
+		spn_1.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spn_1_c));
+		spn_2.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spn_2_c));
+		spn_1.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					create_sel[0]=p3;
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					create_sel[0]=0;
+					// TODO: Implement this method
+				}
+			});
+		spn_2.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					create_sel[1]=p3;
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					create_sel[1]=0;
+					// TODO: Implement this method
+				}
+			});
+			
 		c_et_3.setText(def_dir);
 		Button c_btn=(Button) bb.findViewById(R.id.create1Button1);
 		c_btn.setOnClickListener(this);
@@ -217,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				@Override
 				public void onClick(DialogInterface p1, int p2)
 				{
+					strToast(create_sel[0]+create_sel[1]+getPerm(create_selected).get(0));
 					// TODO: Implement this method
 				}
 			})
@@ -250,11 +305,74 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				@Override
 				public void onClick(DialogInterface p1, int p2, boolean p3)
 				{
+					create_selected[p2]=p3;
 					// TODO: Implement this method
 				}
 			})
 			.setPositiveButton("Ok",null)
 			.show();
-			new AlertDialogUtil().setSupportDialogColor(c,Color.parseColor("#3f51b5"));
+		new AlertDialogUtil().setSupportDialogColor(c,Color.parseColor("#3f51b5"));
+	}
+	public static void checkPerm(Activity mContext)
+	{
+		if(Build.VERSION.SDK_INT>=23){
+            int checkPermission =ContextCompat.checkSelfPermission(mContext,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if(checkPermission!=PackageManager.PERMISSION_GRANTED){
+				ActivityCompat.requestPermissions(mContext,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
+                return;
+            }
+        }
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+	{
+		// TODO: Implement this method
+		switch(requestCode){
+			case 0:
+				if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+					super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+				}else{
+					android.support.v7.app.AlertDialog d=new android.support.v7.app.AlertDialog.Builder(this)
+						.setTitle(R.string.perm_req)
+						.setMessage(R.string.perm_msg+grantResults[0])
+						.setPositiveButton(R.string.perm_pb,new DialogInterface.OnClickListener(){
+
+							@Override
+							public void onClick(DialogInterface p1, int p2)
+							{
+								checkPerm(MainActivity.this);
+								// TODO: Implement this method
+							}
+						})
+						.setNegativeButton(R.string.perm_nb,new DialogInterface.OnClickListener(){
+
+							@Override
+							public void onClick(DialogInterface p1, int p2)
+							{
+								finish();
+								// TODO: Implement this method
+							}
+						})
+						.show();
+					d.setCancelable(false);
+					new AlertDialogUtil().setSupportDialogColor(d,Color.parseColor("#3f51b5"));
+
+				}
+				m2resCheck();
+				break;
+		}
+	}
+	private List<String> getPerm(boolean[] g){
+		List<String> b=new ArrayList<String>();
+		int c=0;
+		for(boolean l:g){
+			if(l){
+				b.add(PermissionConst.perm_const[c]);
+			}
+			c++;
+		}
+		return b;
 	}
 }
