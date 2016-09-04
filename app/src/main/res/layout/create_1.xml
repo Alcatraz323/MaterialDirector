@@ -70,7 +70,16 @@
 
 		<ScrollView
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"/>
+			android:layout_width="wrap_content"
+			android:id="@+id/create1ScrollView1">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:id="@+id/create1TextView1"/>
+
+		</ScrollView>
 
 		<Button
 			style="?android:attr/buttonBarButtonStyle"

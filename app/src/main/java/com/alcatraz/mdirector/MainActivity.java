@@ -22,6 +22,8 @@ import android.*;
 import android.support.v4.content.*;
 import android.support.v4.app.*;
 import android.widget.AdapterView.*;
+import java.lang.reflect.*;
+import android.util.*;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	DrawerLayout dl;
 	ViewPager vp;
 	TextView txv;
+	TextView txv_c;
 	ViewPagerAdapter vpa;
 	List<View> vpd;
 	NavigationView ngv;
@@ -54,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	View bb;
 	/*______*/
 	int[] create_sel=new int[2];
-	boolean[] create_selected=new boolean[134];
+	boolean[] create_selected=new boolean[322];
 	String[] create_perm_sel;
+	String[] per;
 	/*_______*/
 	
 	/*______ARGS*/
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		setUpViewPager();
 		m2resCheck();
 		checkPerm(this);
-		for(int c=0;c<134;c++){
+		for(int c=0;c<322;c++){
 			create_selected[c]=false;
 		}
     }
@@ -224,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		final EditText c_et_3=(EditText) bb.findViewById(R.id.create1EditText3);
 		final EditText c_et_4=(EditText) bb.findViewById(R.id.create1EditText4);
 		final Spinner spn_1=(Spinner) bb.findViewById(R.id.create1Spinner1);
+		txv_c=(TextView) bb.findViewById(R.id.create1TextView1);
 		final Spinner spn_2=(Spinner) bb.findViewById(R.id.create1Spinner2);
 		spn_1.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spn_1_c));
 		spn_2.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spn_2_c));
@@ -271,7 +276,26 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				@Override
 				public void onClick(DialogInterface p1, int p2)
 				{
-					strToast(create_sel[0]+create_sel[1]+getPerm(create_selected).get(0));
+					String label=c_et_1.getText().toString();
+					String packagename=c_et_2.getText().toString();
+					String folder=c_et_3.getText().toString();
+					String color=c_et_4.getText().toString();
+					int mode=create_sel[0];
+					int theme=create_sel[1];
+					boolean isNew=true;
+					ArrayList<String> permissions=getChoosedPerm(create_selected);
+					Bundle data=new Bundle();
+					data.putStringArrayList("permissions",permissions);
+					data.putString("label",label);
+					data.putString("packagename",packagename);
+					data.putString("folder",folder);
+					data.putString("color",color);
+					data.putInt("mode",mode);
+					data.putInt("theme",theme);
+					data.putBoolean("isNew",isNew);
+					Intent intent=new Intent(MainActivity.this,Editor.class);
+					intent.putExtras(data);
+					startActivity(intent);
 					// TODO: Implement this method
 				}
 			})
@@ -287,6 +311,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 					c_et_2.setText(null);
 					c_et_3.setText(null);
 					c_et_4.setText(null);
+					for(int c=0;c<322;c++){
+						create_selected[c]=false;
+					}
 					// TODO: Implement this method
 				}
 			});
@@ -297,20 +324,28 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	}
 	private void showPermissionAddDlg()
 	{
-		String[] per={getString(R.string.perm_1),getString(R.string.perm_2),getString(R.string.perm_3),getString(R.string.perm_4),getString(R.string.perm_5),getString(R.string.perm_6),getString(R.string.perm_7),getString(R.string.perm_8),getString(R.string.perm_9),getString(R.string.perm_10),getString(R.string.perm_p_11),getString(R.string.perm_11),getString(R.string.perm_12),getString(R.string.perm_13),getString(R.string.perm_14),getString(R.string.perm_15),getString(R.string.perm_16),getString(R.string.perm_17),getString(R.string.perm_18),getString(R.string.perm_19),getString(R.string.perm_20),getString(R.string.perm_21),getString(R.string.perm_22),getString(R.string.perm_23),getString(R.string.perm_24),getString(R.string.perm_25),getString(R.string.perm_26),getString(R.string.perm_27),getString(R.string.perm_28),getString(R.string.perm_29),getString(R.string.perm_30),getString(R.string.perm_31),getString(R.string.perm_32),getString(R.string.perm_33),getString(R.string.perm_34),getString(R.string.perm_35),getString(R.string.perm_36),getString(R.string.perm_37),getString(R.string.perm_38),getString(R.string.perm_39),getString(R.string.perm_40),getString(R.string.perm_41),getString(R.string.perm_42),getString(R.string.perm_43),getString(R.string.perm_44),getString(R.string.perm_45),getString(R.string.perm_46),getString(R.string.perm_47),getString(R.string.perm_48),getString(R.string.perm_49),getString(R.string.perm_50),getString(R.string.perm_51),getString(R.string.perm_52),getString(R.string.perm_53),getString(R.string.perm_54),getString(R.string.perm_55),getString(R.string.perm_56),getString(R.string.perm_57),getString(R.string.perm_58),getString(R.string.perm_59),getString(R.string.perm_60),getString(R.string.perm_61),getString(R.string.perm_62),getString(R.string.perm_63),getString(R.string.perm_64),getString(R.string.perm_65),getString(R.string.perm_66),getString(R.string.perm_67),getString(R.string.perm_68),getString(R.string.perm_69),getString(R.string.perm_70),getString(R.string.perm_71),getString(R.string.perm_72),getString(R.string.perm_73),getString(R.string.perm_74),getString(R.string.perm_75),getString(R.string.perm_76),getString(R.string.perm_77),getString(R.string.perm_78),getString(R.string.perm_79),getString(R.string.perm_80),getString(R.string.perm_81),getString(R.string.perm_82),getString(R.string.perm_83),getString(R.string.perm_84),getString(R.string.perm_85),getString(R.string.perm_86),getString(R.string.perm_87),getString(R.string.perm_88),getString(R.string.perm_89),getString(R.string.perm_90),getString(R.string.perm_91),getString(R.string.perm_92),getString(R.string.perm_93),getString(R.string.perm_94),getString(R.string.perm_95),getString(R.string.perm_96),getString(R.string.perm_97),getString(R.string.perm_98),getString(R.string.perm_99),getString(R.string.perm_100),getString(R.string.perm_101),getString(R.string.perm_102),getString(R.string.perm_103),getString(R.string.perm_104),getString(R.string.perm_105),getString(R.string.perm_106),getString(R.string.perm_107),getString(R.string.perm_108),getString(R.string.perm_109),getString(R.string.perm_110),getString(R.string.perm_111),getString(R.string.perm_112),getString(R.string.perm_113),getString(R.string.perm_114),getString(R.string.perm_115),getString(R.string.perm_116),getString(R.string.perm_117),getString(R.string.perm_118),getString(R.string.perm_119),getString(R.string.perm_120),getString(R.string.perm_121),getString(R.string.perm_122),getString(R.string.perm_123),getString(R.string.perm_124),getString(R.string.perm_125),getString(R.string.perm_126),getString(R.string.perm_127),getString(R.string.perm_128),getString(R.string.perm_129),getString(R.string.perm_130),getString(R.string.perm_131),getString(R.string.perm_132)};
+		
+		ArrayList<Field> fieldList = new ArrayList<Field>();
+		Field[] dFields = Manifest.permission.class.getDeclaredFields();
+		if (null != dFields && dFields.length > 0) {
+			fieldList.addAll(Arrays.asList(dFields));
+		}
+		per=getPerm(fieldList);
 		android.support.v7.app.AlertDialog c=new android.support.v7.app.AlertDialog.Builder(this)
 			.setTitle(R.string.create_per)
-			.setMultiChoiceItems(per,null,new DialogInterface.OnMultiChoiceClickListener(){
+			.setMultiChoiceItems(per,create_selected,new DialogInterface.OnMultiChoiceClickListener(){
 
 				@Override
 				public void onClick(DialogInterface p1, int p2, boolean p3)
 				{
 					create_selected[p2]=p3;
+					
 					// TODO: Implement this method
 				}
 			})
 			.setPositiveButton("Ok",null)
 			.show();
+		
 		new AlertDialogUtil().setSupportDialogColor(c,Color.parseColor("#3f51b5"));
 	}
 	public static void checkPerm(Activity mContext)
@@ -364,15 +399,24 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				break;
 		}
 	}
-	private List<String> getPerm(boolean[] g){
+	private String[] getPerm(ArrayList<Field> g){
 		List<String> b=new ArrayList<String>();
-		int c=0;
-		for(boolean l:g){
-			if(l){
-				b.add(PermissionConst.perm_const[c]);
+		for(Field h:g){
+			try{
+				b.add(h.get(new Manifest()).toString());
+
+			}catch(IllegalAccessException e){}catch(IllegalArgumentException e){}}
+		return b.toArray(new String[b.size()]);
+	}
+	private ArrayList<String> getChoosedPerm(boolean[] v){
+		ArrayList<String> selected=new ArrayList<String>();
+		int l=0;
+		for(boolean i:v){
+			if(i){
+				selected.add(per[l]);
 			}
-			c++;
+			l++;
 		}
-		return b;
+		return selected;
 	}
 }

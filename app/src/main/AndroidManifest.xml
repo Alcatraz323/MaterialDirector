@@ -20,6 +20,8 @@
         </activity>
 		<activity
 			android:name=".Setting"/>
+		<activity
+			android:name=".Editor"/>
     </application>
 
 </manifest>
