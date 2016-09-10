@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 			case R.id.create1Button1:
 				showPermissionAddDlg();
 				break;
+			
 		}
 		// TODO: Implement this method
 	}
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	ViewPagerMin vpm;
 	TabLayout tl;
 	View v;
+	View hhh;
+	LinearLayout ll;
 	DrawerLayout dl;
 	ViewPager vp;
 	TextView txv;
@@ -61,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	String[] create_perm_sel;
 	String[] per;
 	/*_______*/
-	
+
 	/*______ARGS*/
 	String def_dir;
-	
+
 
 	/*__________*/
 	ImageView m2_stat;
@@ -90,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 		tl=(TabLayout) findViewById(R.id.mainTabLayout1);
 		ngv=(NavigationView) findViewById(R.id.navigation);
 		txv=(TextView) ngv.getHeaderView(0).findViewById(R.id.navheaderTextView1);
+		ll=(LinearLayout) ngv.getHeaderView(0).findViewById(R.id.navheaderLinearLayout2);
 		txv.setText(getString(R.string.dr_device)+":"+Build.DEVICE);
-
-
+		
 		ngv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
 				@Override
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	}
 	private void showCreateDlg()
 	{
-		String[] spn_1_c={getString(R.string.create_spinner_1_1),getString(R.string.create_spinner_1_2),getString(R.string.create_spinner_1_3)};
+		String[] spn_1_c={getString(R.string.create_spinner_1_2)};
 		String[] spn_2_c={getString(R.string.create_spinner_2_1),getString(R.string.create_spinnet_2_2)};
 		bb=getLayoutInflater().inflate(R.layout.create_1,null);
 		final EditText c_et_1=(EditText) bb.findViewById(R.id.create1EditText1);
@@ -264,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 					// TODO: Implement this method
 				}
 			});
-			
+
 		c_et_3.setText(def_dir);
 		Button c_btn=(Button) bb.findViewById(R.id.create1Button1);
 		c_btn.setOnClickListener(this);
@@ -324,10 +327,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 	}
 	private void showPermissionAddDlg()
 	{
-		
+
 		ArrayList<Field> fieldList = new ArrayList<Field>();
 		Field[] dFields = Manifest.permission.class.getDeclaredFields();
-		if (null != dFields && dFields.length > 0) {
+		if(null!=dFields&&dFields.length>0){
 			fieldList.addAll(Arrays.asList(dFields));
 		}
 		per=getPerm(fieldList);
@@ -339,13 +342,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				public void onClick(DialogInterface p1, int p2, boolean p3)
 				{
 					create_selected[p2]=p3;
-					
+
 					// TODO: Implement this method
 				}
 			})
 			.setPositiveButton("Ok",null)
 			.show();
-		
+
 		new AlertDialogUtil().setSupportDialogColor(c,Color.parseColor("#3f51b5"));
 	}
 	public static void checkPerm(Activity mContext)
@@ -399,7 +402,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 				break;
 		}
 	}
-	private String[] getPerm(ArrayList<Field> g){
+	private String[] getPerm(ArrayList<Field> g)
+	{
 		List<String> b=new ArrayList<String>();
 		for(Field h:g){
 			try{
@@ -408,7 +412,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 			}catch(IllegalAccessException e){}catch(IllegalArgumentException e){}}
 		return b.toArray(new String[b.size()]);
 	}
-	private ArrayList<String> getChoosedPerm(boolean[] v){
+	private ArrayList<String> getChoosedPerm(boolean[] v)
+	{
 		ArrayList<String> selected=new ArrayList<String>();
 		int l=0;
 		for(boolean i:v){

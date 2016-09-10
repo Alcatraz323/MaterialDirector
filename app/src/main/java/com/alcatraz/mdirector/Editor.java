@@ -10,6 +10,7 @@ import android.widget.*;
 import android.support.design.widget.*;
 import java.io.*;
 import android.util.*;
+import android.content.res.*;
 
 public class Editor extends AppCompatActivity
 {
@@ -67,6 +68,15 @@ public class Editor extends AppCompatActivity
 		dl=(DrawerLayout) findViewById(R.id.editor1DrawerLayout1);
 		ngv=(NavigationView) findViewById(R.id.navigation_1);
 		ngv.setCheckedItem(R.id.ed_nav_1);
+		ngv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+
+				@Override
+				public boolean onNavigationItemSelected(MenuItem p1)
+				{
+					// TODO: Implement this method
+					return true;
+				}
+			});
 		hea=(TextView) ngv.getHeaderView(0).findViewById(R.id.navheaderTextView2);
 		hea1=(TextView) ngv.getHeaderView(0).findViewById(R.id.navheaderTextView1);
 		hea.setText(label);
@@ -77,14 +87,16 @@ public class Editor extends AppCompatActivity
 		File root=new File(folder+label+"/");
 		root.mkdirs();
 		String[] first={root.getAbsolutePath()+"/"+"app/",root.getAbsolutePath()+"/"+"build.gradle",root.getAbsolutePath()+"/"+"settings.gradle"};
-		String[] second_f_app={first[0]+"/"+"build.gradle",first[0]+"/"+"libs/",first[0]+"/"+"proguard-rules.pro",first[0]+"/"+"src/"};
+		String[] second_f_app={first[0]+"build.gradle",first[0]+"libs/",first[0]+"proguard-rules.pro",first[0]+"src/"};
 		String[] third_f_src={second_f_app[3]+"main/"};
 		String[] fourth_f_main={third_f_src[0]+"AndroidManifest.xml",third_f_src[0]+"java/",third_f_src[0]+"res/",third_f_src[0]+"assets/"};
 		String[] fifth_f_java=packagename.split("\\.");
+		String[] fifth_f_res={fourth_f_main[2]+"drawable/",fourth_f_main[2]+"drawable-mdpi/",fourth_f_main[2]+"drawable-hdpi/",fourth_f_main[2]+"drawable-xdpi/",fourth_f_main[2]+"drawable-xxdpi/",fourth_f_main[2]+"layout/",fourth_f_main[2]+"values/",fourth_f_main[2]+"values-v21/",fourth_f_main[2]+"value-zh-rCN/",fourth_f_main[2]+"xml/"};
 		writeDir(first);
 		writeDir(second_f_app);
 		writeDir(third_f_src);
 		writeDir(fourth_f_main);
+		writeDir(fifth_f_res);
 		String tempDir=null;
 		Log.e("Alcatraz","Prepare Package  "+packagename+"/"+fifth_f_java.length);
 		for(int h=0;h<fifth_f_java.length;h++){
@@ -96,6 +108,11 @@ public class Editor extends AppCompatActivity
 			new File(tempDir).mkdirs();
 			Log.e("Alcatraz",tempDir);
 		}
+		CopyAssetsFile("com.alcatraz.support.v4.appcompat.jar",second_f_app[1]);
+		CopyAssetsFile("ic_android.png",fifth_f_res[0]);
+		CopyAssetsFile("build.gradle",root.getAbsolutePath()+"/");
+		CopyAssetsFile("settings.gradle",root.getAbsolutePath()+"/");
+		
 	}
 	private void writeDir(String[] ik){
 		for(String h:ik){
@@ -108,5 +125,69 @@ public class Editor extends AppCompatActivity
 			}
 		}
 	}
-	
+	private Boolean CopyAssetsFile(String filename, String des) {
+		Boolean isSuccess = true;
+		AssetManager assetManager = this.getAssets();
+
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = assetManager.open(filename);
+			String newFileName = des + "/" + filename;
+			out = new FileOutputStream(newFileName);
+
+			byte[] buffer = new byte[1024];
+			int read;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			in.close();
+			in = null;
+			out.flush();
+			out.close();
+			out = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			isSuccess = false;
+		}
+
+		return isSuccess;
+
+	}
+
+	private Boolean CopyAssetsDir(String src,String des) {
+		Boolean isSuccess = true;
+		String[] files;
+		try
+		{
+			files = this.getResources().getAssets().list(src);
+		}
+		catch (IOException e1)
+		{
+			return false;
+		}
+
+		if(files.length==0){
+			isSuccess = CopyAssetsFile(src,des);
+			if(!isSuccess)
+				return isSuccess;
+		}
+		else{
+			File srcfile = new File(des+"/"+src);
+			if(!srcfile.exists()){
+				if(srcfile.mkdirs()){
+					for(int i=0;i<files.length;i++){
+						isSuccess = CopyAssetsDir(src + "/"+files[i], des);
+						if(!isSuccess)
+							return isSuccess;
+					}
+				}
+				else{
+					return false;
+				}
+			}
+
+		}
+		return isSuccess;
+	}
 }

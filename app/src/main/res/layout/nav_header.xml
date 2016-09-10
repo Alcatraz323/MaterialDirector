@@ -4,16 +4,25 @@
 	android:layout_height="192dp"
 	android:layout_width="match_parent">
 
-	<ImageView
-		android:focusable="true"
-		android:clickable="true"
-		android:foreground="?android:attr/selectableItemBackground"
-		android:layout_width="match_parent"
+	<LinearLayout
 		android:layout_height="wrap_content"
-		android:src="@drawable/image_1"
-		android:scaleType="centerCrop">
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:id="@+id/navheaderLinearLayout2">
 
-	</ImageView>
+		<ImageView
+			android:focusable="true"
+			android:clickable="true"
+			android:foreground="?android:attr/selectableItemBackground"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:src="@drawable/image_1"
+			android:scaleType="centerCrop"
+			android:id="@+id/navheaderImageView1">
+
+		</ImageView>
+
+	</LinearLayout>
 
 	<RelativeLayout
 		android:layout_height="match_parent"
